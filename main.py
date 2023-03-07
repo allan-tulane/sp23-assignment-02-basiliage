@@ -46,8 +46,16 @@ def pad(x,y):
 
 
 def subquadratic_multiply(x, y):
-    ### TODO
-    pass
+  n = max(len(x), len(y))
+  if n <= 4:
+    return x * y
+  else:
+    xL, xR = split_number(x)
+    yL, yR = split_number(y)
+    p1 = subquadratic_multiply(xL, yL)
+    p2 = subquadratic_multiply(xR, yR)
+    p3 = subquadratic_multiply(xL + xR, yL + yR)
+    return (p1 << (2 * (n // 2))) + ((p3 - p1 - p2) << (n // 2)) + p2
     ###
 
 ## Feel free to add your own tests here.
